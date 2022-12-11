@@ -3,6 +3,9 @@
 </template>
 
 <style>
+  body {
+    background: #11111130;
+  }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
