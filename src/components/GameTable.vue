@@ -18,7 +18,7 @@
         components: { CardItem },
         setup () {
             const activeCards = ref([
-                { suit: 0, value: 2, location: 'inDeck', highlighted: false },
+                { suit: 0, value: 2, location: 'inDeck', highlighted: true },
                 { suit: 1, value: 2, location: 'inDeck', highlighted: false },
                 { suit: 2, value: 2, location: 'inDeck', highlighted: false },
                 { suit: 3, value: 2, location: 'inDeck', highlighted: false },
