@@ -3,6 +3,7 @@
         <div class="game-table-frame">
             <div class="cards">
                 <CardItem v-for="(item) in activeCards"
+                          :highlight-mode-prop="true"
                           :item-data="item"
                           :key="item.id"/>
             </div>
@@ -17,36 +18,11 @@
         components: { CardItem },
         setup () {
             const activeCards = ref([
-                {
-                    id: 0,
-                    value: 2,
-                    suit: 0,
-                    status: 'visible'
-                },
-                {
-                    id: 1,
-                    value: 3,
-                    suit: 1,
-                    status: 'visible'
-                },
-                {
-                    id: 2,
-                    value: 4,
-                    suit: 2,
-                    status: 'visible'
-                },
-                {
-                    id: 3,
-                    value: 5,
-                    suit: 3,
-                    status: null
-                },
-                {
-                    id: 4,
-                    value: 6,
-                    suit: 2,
-                    status: null
-                }
+                { suit: 0, value: 2, location: 'inDeck', highlighted: false },
+                { suit: 1, value: 2, location: 'inDeck', highlighted: false },
+                { suit: 2, value: 2, location: 'inDeck', highlighted: false },
+                { suit: 3, value: 2, location: 'inDeck', highlighted: false },
+                { suit: 3, value: 3, location: 'inDeck', highlighted: false },
             ]);
             return { activeCards }
         }
