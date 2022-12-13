@@ -1,17 +1,31 @@
 <template>
     <div class="game-table">
+        <pre>
+            {{getDeck}}
+        </pre>
         <div class="game-table-frame">
             <div class="cards">
-                <CardItem v-for="(item) in activeCards"
+                <CardItem v-for="(item) in getDeck"
+                          :size="'middle'"
                           :highlight-mode-prop="true"
                           :item-data="item"
                           :key="item.id"/>
             </div>
         </div>
     </div>
+    <div class="hand-part">
+        <div class="hand-cards d-flex">
+            <CardItem v-for="(item) in getHand"
+                      :size="'small'"
+                      :highlight-mode-prop="false"
+                      :item-data="item"
+                      :key="item.id"/>
+        </div>
+    </div>
 </template>
 <script>
     import { ref } from 'vue'
+    import { mapGetters, mapActions } from 'vuex'
     import CardItem from '@/components/CardItem.vue'
     export default {
         name: 'Home',
@@ -25,6 +39,17 @@
                 { suit: 3, value: 3, location: 'inDeck', highlighted: false },
             ]);
             return { activeCards }
+        },
+        computed: {
+            ...mapGetters(['getHand', 'getDeck'])
+        },
+        methods: {
+            ...mapActions({
+                setDeckAction: 'setDeckAction'
+            })
+        },
+        mounted () {
+            this.setDeckAction({ id: 0, suit: 0, value: 2, location: 'inDeck', highlighted: false })
         }
     }
 </script>
@@ -51,5 +76,11 @@
                 border-radius: 130px;
             }
         }
+    }
+    .hand-part {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -40px;
     }
 </style>

@@ -2,8 +2,9 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { createStore } from 'vuex'
-import storeObjects from './store/index.ts'
+import storeObjects from './store'
 
+console.log(storeObjects)
 // Create a new store instance.
 const store = createStore(storeObjects)
 

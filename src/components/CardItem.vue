@@ -1,9 +1,11 @@
 <template>
     <div class="card-item d-flex flex-column"
-         :class="{
-            'highlighted': item.highlighted,
-            'grayscale': !item.highlighted && highlightMode
-         }">
+         :class="[ size,
+            {
+                'highlighted': item.highlighted,
+                'grayscale': !item.highlighted && highlightMode
+            }
+         ]">
 
         <div class="card-item-value">
             <p :class="{'red': item.suit === 0 || item.suit === 1}">{{item.value}}</p>
@@ -25,7 +27,11 @@
     export default {
         props: {
             itemData: {},
-            highlightModeProp: Boolean
+            highlightModeProp: Boolean,
+            size: {
+                required: true,
+                default: 'middle'
+            }
         },
         setup (props) {
             const item = ref(props.itemData)
@@ -42,8 +48,6 @@
     .card-item {
         transition: 0.6s;
         background: #fff;
-        width: 80px;
-        height: 120px;
         border: 1px solid #ffffff40;
         margin: 0 5px;
         border-radius: 5px;
@@ -66,13 +70,23 @@
             p.red {
                 color: red;
             }
-            p.rotate-90 {
-                // transform: rotate(180deg);
-            }
         }
         &-icon {
             img {
                 width: 32px;
+            }
+        }
+    }
+    .card-item.middle {
+        width: 80px;
+        height: 120px;
+    }
+    .card-item.small {
+        width: 70px;
+        height: 105px;
+        .card-item-icon {
+            img {
+                width: 24px;
             }
         }
     }
