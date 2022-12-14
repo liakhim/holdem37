@@ -1,8 +1,5 @@
 <template>
     <div class="game-table">
-        <pre>
-            {{getDeck}}
-        </pre>
         <div class="game-table-frame">
             <div class="cards">
                 <CardItem v-for="(item) in getDeck"
@@ -25,7 +22,7 @@
 </template>
 <script>
     import { ref } from 'vue'
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapActions, mapGetters } from 'vuex'
     import CardItem from '@/components/CardItem.vue'
     export default {
         name: 'Home',
@@ -41,14 +38,13 @@
             return { activeCards }
         },
         computed: {
-            ...mapGetters(['getHand', 'getDeck'])
+            ...mapGetters('a', ['getHand', 'getDeck'])
         },
         methods: {
-            ...mapActions({
-                setDeckAction: 'setDeckAction'
-            })
+            ...mapActions('a', ['setDeckAction'])
         },
-        mounted () {
+        created () {
+            // this.$store.dispatch('table/setDeckAction')
             this.setDeckAction({ id: 0, suit: 0, value: 2, location: 'inDeck', highlighted: false })
         }
     }

@@ -12,7 +12,7 @@
         </div>
 
         <div class="card-item-icon">
-            <img :src="require('@/assets/' + $store.state.suits.find(v => v.id === item.suit).icon)"
+            <img :src="require('@/assets/' + $store.state.a.suits.find(v => v.id === item.suit).icon)"
                  alt="">
         </div>
 
