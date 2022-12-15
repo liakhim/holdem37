@@ -1,8 +1,12 @@
 <template>
+    <div>
+        {{getChosenCards}}
+    </div>
+    <button @click="dealFlop">dealFlop</button>
     <div class="game-table">
         <div class="game-table-frame">
             <div class="cards">
-                <CardItem v-for="(item) in getDeck"
+                <CardItem v-for="(item) in getChosenCards"
                           :size="'middle'"
                           :highlight-mode-prop="true"
                           :item-data="item"
@@ -22,7 +26,7 @@
 </template>
 <script>
     import { ref } from 'vue'
-    import { mapActions, mapGetters } from 'vuex'
+    import { mapActions, mapGetters, mapMutations } from 'vuex'
     import CardItem from '@/components/CardItem.vue'
     export default {
         name: 'Home',
@@ -38,14 +42,19 @@
             return { activeCards }
         },
         computed: {
-            ...mapGetters('a', ['getHand', 'getDeck'])
+            ...mapGetters('a', ['getHand', 'getDeck', 'getBoard', 'getChosenCards'])
         },
         methods: {
-            ...mapActions('a', ['setDeckAction'])
+            ...mapActions('a', ['setDeckAction', 'test']),
+            ...mapMutations('a', ['moveToTable', 'chooseCards']),
+            dealFlop () {
+                this.chooseCards(3)
+            }
+
         },
         created () {
             // this.$store.dispatch('table/setDeckAction')
-            this.setDeckAction({ id: 0, suit: 0, value: 2, location: 'inDeck', highlighted: false })
+            // this.setDeckAction({ id: 0, suit: 0, value: 2, location: 'inDeck', highlighted: false })
         }
     }
 </script>

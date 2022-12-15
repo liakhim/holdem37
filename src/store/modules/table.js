@@ -104,8 +104,8 @@ const table = {
             { id: 51, suit: 2, value: 14, location: 'inDeck', highlighted: false },
             { id: 52, suit: 3, value: 14, location: 'inDeck', highlighted: false }
         ],
-        chosenCard: {},
-        deck: [],
+        chosenCards: [],
+        board: [],
         hand: [
             { id: 12, suit: 0, value: 5, location: 'inHand', highlighted: false },
             { id: 13, suit: 1, value: 5, location: 'inHand', highlighted: false }
@@ -116,7 +116,13 @@ const table = {
             return state.hand
         },
         getDeck (state) {
-            return state.deck
+            return state.allCards
+        },
+        getBoard (state) {
+            return state.board
+        },
+        getChosenCards (state) {
+            return state.chosenCards
         }
     },
     mutations: {
@@ -126,10 +132,20 @@ const table = {
         setDeck (state, card) {
             state.deck.push(card)
         },
-        chooseCard (state) {
-            const filteredCards = state.allCards.filter(v => v.location === 'inDeck')
-            let rand = Math.floor(Math.random() * filteredCards.length);
-            state.chosenCard = filteredCards[rand];
+        setBoard (state, card) {
+            state.board.push(card)
+        },
+        moveToTable (state, cardId) {
+            state.allCards.find(v => v.id === cardId).location = 'inBoard'
+        },
+        chooseCards (state, quantity) {
+            state.chosenCards = [];
+            for (let i = 0; i < quantity; i++) {
+                const filteredCards = state.allCards.filter(v => v.location === 'inDeck')
+                let rand = Math.floor(Math.random() * filteredCards.length);
+                filteredCards[rand].location = null;
+                state.chosenCards.push(filteredCards[rand]);
+            }
         },
         clearChosenCard (state) {
             state.chosenCard = {}
