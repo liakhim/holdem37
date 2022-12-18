@@ -8,7 +8,7 @@
          ]">
 
         <div class="card-item-value">
-            <p :class="{'red': item.suit === 0 || item.suit === 1}">{{item.value}}</p>
+            <p :class="{'red': item.suit === 0 || item.suit === 1}">{{convertValue(item.value).label}}</p>
         </div>
 
         <div class="card-item-icon">
@@ -18,12 +18,13 @@
 
         <div class="card-item-value justify-content-end">
             <p :class="{'red': item.suit === 0 || item.suit === 1}"
-               :style="{'transform':'rotate(180deg)'}">{{item.value}}</p>
+               :style="{'transform':'rotate(180deg)'}">{{convertValue(item.value).label}}</p>
         </div>
     </div>
 </template>
 <script>
     import { ref } from 'vue'
+    import { mapGetters } from 'vuex'
     export default {
         props: {
             itemData: {},
@@ -39,6 +40,14 @@
             return {
                 item,
                 highlightMode
+            }
+        },
+        computed: {
+            ...mapGetters('a', ['getValues'])
+        },
+        methods: {
+            convertValue (value) {
+                return this.getValues.find(v => v.value === value)
             }
         }
     }

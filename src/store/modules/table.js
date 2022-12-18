@@ -112,6 +112,9 @@ const table = {
         ]
     }),
     getters: {
+        getValues (state) {
+          return state.values
+        },
         getHand (state) {
             return state.hand
         },

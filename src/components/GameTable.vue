@@ -1,14 +1,10 @@
 <template>
-    <div>
-        {{getChosenCards}}
-    </div>
-    <button @click="dealFlop">dealFlop</button>
     <div class="game-table">
         <div class="game-table-frame">
             <div class="cards">
-                <CardItem v-for="(item) in getChosenCards"
+                <CardItem v-for="(item) in getBoard"
                           :size="'middle'"
-                          :highlight-mode-prop="true"
+                          :highlight-mode-prop="false"
                           :item-data="item"
                           :key="item.id"/>
             </div>
@@ -46,13 +42,33 @@
         },
         methods: {
             ...mapActions('a', ['setDeckAction', 'test']),
-            ...mapMutations('a', ['moveToTable', 'chooseCards']),
+            ...mapMutations('a', ['moveToTable', 'chooseCards', 'setBoard']),
             dealFlop () {
+                console.log('flop')
                 this.chooseCards(3)
+                for (let i = 0; i < this.getChosenCards.length; i++) {
+                    this.setBoard(this.getChosenCards[i])
+                }
+            },
+            dealRiver () {
+                console.log('river')
+                this.chooseCards(1)
+                this.setBoard(this.getChosenCards[0])
+            },
+            dealTurn () {
+                console.log('turn')
+                this.chooseCards(1)
+                this.setBoard(this.getChosenCards[0])
             }
-
         },
         created () {
+            this.dealFlop()
+            setTimeout(() => {
+                this.dealRiver()
+            }, 1000)
+            setTimeout(() => {
+                this.dealTurn()
+            }, 2000)
             // this.$store.dispatch('table/setDeckAction')
             // this.setDeckAction({ id: 0, suit: 0, value: 2, location: 'inDeck', highlighted: false })
         }
