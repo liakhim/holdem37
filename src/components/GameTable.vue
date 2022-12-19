@@ -38,7 +38,7 @@
             return { activeCards }
         },
         computed: {
-            ...mapGetters('a', ['getHand', 'getDeck', 'getBoard', 'getChosenCards'])
+            ...mapGetters('a', ['getHand', 'getDeck', 'getBoard', 'getChosenCards', 'combinationCheck'])
         },
         methods: {
             ...mapActions('a', ['setDeckAction', 'test']),

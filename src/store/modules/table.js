@@ -126,6 +126,64 @@ const table = {
         },
         getChosenCards (state) {
             return state.chosenCards
+        },
+        combinationCheck () {
+            return (combination) => {
+                let combinationSorted = combination.sort((a, b) => a.value > b.value ? -1 : 1)
+                combinationSorted.forEach((v, index) => {
+                    /* проверка на стрит - если при итерации следующие четыре элемента имеют
+                    значение на 1 единицу меньше чем предыдущее значение карты  */
+                    const straightExp = (combinationSorted[index + 4] &&
+                        v.value - 1 === combinationSorted[index + 1].value &&
+                        v.value - 2 === combinationSorted[index + 2].value &&
+                        v.value - 3 === combinationSorted[index + 3].value &&
+                        v.value - 4 === combinationSorted[index + 4].value)
+                    if (straightExp) {
+                        console.log('есть стрит до ' + v.value)
+                    }
+
+                    /* проверка на флеш - если длина отфильтрованного по масти массива равна 5 */
+                    const flushExp = (combinationSorted.filter(v => v.suit === 0).length === 5 ||
+                        combinationSorted.filter(v => v.suit === 1).length === 5 ||
+                        combinationSorted.filter(v => v.suit === 2).length === 5 ||
+                        combinationSorted.filter(v => v.suit === 3).length === 5)
+                    if (flushExp) {
+                        console.log('Есть флеш из ' + v.suit)
+                    }
+
+                    /* проверка на стрит-флеш */
+                    const straightAndFlushExp = flushExp && straightExp
+                    if (straightAndFlushExp) {
+                        console.log('есть стрит флеш')
+                    }
+                    /* проверка на каре */
+                    const fourExp = (combinationSorted[index + 4] &&
+                        (v.value === combinationSorted[index + 1].value &&
+                        v.value === combinationSorted[index + 2].value &&
+                        v.value === combinationSorted[index + 3].value))
+                    if (fourExp) {
+                        console.log('есть каре')
+                    }
+                    /* проверка на сет - если в отсортированном массиве в итерации
+                    (начиная со второго ээлемента) - соседние значения карт равны текущему */
+                    const threeExp = (index > 0 && combinationSorted[index + 1] &&
+                        v.value === combinationSorted[index - 1].value &&
+                        v.value === combinationSorted[index + 1].value)
+                    if (threeExp) {
+                        console.log('Проверка ' + v.value + ' - ' + 'есть сет из ' + v.value)
+                    }
+                    /* проверка на пару - если при итерации сортированного массива карта
+                     справа имеет значение равное текущему */
+                    const pairExp = combinationSorted[index + 1] &&
+                        v.value === combinationSorted[index + 1].value
+                    if (pairExp) {
+                        console.log('Проверка ' + v.value + ' - ' + 'есть пара ' + v.value)
+                    }
+                })
+                let combinationResult;
+                return combinationResult;
+            }
+            // return combination.sort()
         }
     },
     mutations: {
