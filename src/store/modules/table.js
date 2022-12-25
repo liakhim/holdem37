@@ -213,9 +213,6 @@ const table = {
         }
     },
     actions: {
-        test () {
-          alert('ccsac')
-        },
         setHandAction ({ commit }, card) {
             commit('setHand', card)
         },
