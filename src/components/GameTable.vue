@@ -1,34 +1,6 @@
 <template>
     <div class="deck d-flex" style="margin-left: 100px">
-        <FlippedCard/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
-        <FlippedCard style="margin-left: -75px"/>
+        <FlippedCard v-for="(item, index) in getDeck" :key="item.id + index" style="margin-left: -75px"/>
     </div>
     <div class="game-table">
         <div class="game-table-frame">

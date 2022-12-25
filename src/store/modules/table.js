@@ -119,7 +119,7 @@ const table = {
             return state.hand
         },
         getDeck (state) {
-            return state.allCards
+            return state.allCards.filter(v => v.location === 'inDeck')
         },
         getBoard (state) {
             return state.board
