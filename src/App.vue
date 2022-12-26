@@ -1,5 +1,7 @@
 <template>
-  <router-view/>
+  <div style="margin-left: 160px; border: 1px solid red">
+    <router-view/>
+  </div>
 </template>
 
 <style>

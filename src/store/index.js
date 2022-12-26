@@ -1,9 +1,10 @@
-// import Vuex from 'vuex'
-// import table from "./modules/table";
-// const storeObjects = new Vuex.Store({
-//     namespaced: true,
-//     modules: {
-//         table: table
-//     }
-// });
-// export default storeObjects;
+import { createStore } from "vuex";
+import table from './modules/table'
+import sidebar from './modules/sidebar'
+const store = createStore({
+    modules: {
+        a: table,
+        s: sidebar
+    }
+})
+export default store

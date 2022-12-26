@@ -2,15 +2,10 @@
     <div class="deck d-flex" style="margin-left: 100px">
         <FlippedCard v-for="(item, index) in getDeck" :key="item.id + index" style="margin-left: -75px"/>
     </div>
-    <div class="game-table">
+    <div class="game-table"
+         :class="{green: th === 'green', blue: th === 'blue' }">
         <div class="game-table-frame">
-            <div class="cards">
-                <CardItem v-for="(item) in getBoard"
-                          :size="'middle'"
-                          :highlight-mode-prop="false"
-                          :item-data="item"
-                          :key="item.id"/>
-            </div>
+            <slot></slot>
         </div>
     </div>
     <div class="hand-part">
@@ -19,19 +14,21 @@
                       :size="'small'"
                       :highlight-mode-prop="false"
                       :item-data="item"
-                      :key="item.id"/>
+                      :key="item.id"
+            />
         </div>
     </div>
 </template>
 <script>
     import { ref } from 'vue'
-    import { mapActions, mapGetters, mapMutations } from 'vuex'
+    import { mapGetters } from 'vuex'
     import CardItem from '@/components/CardItem.vue'
     import FlippedCard from '@/components/FlippedCard.vue'
     export default {
         name: 'Home',
         components: { CardItem, FlippedCard },
-        setup () {
+        setup (props) {
+            const th = ref(props.theme)
             const activeCards = ref([
                 { suit: 0, value: 2, location: 'inDeck', highlighted: true },
                 { suit: 1, value: 2, location: 'inDeck', highlighted: false },
@@ -39,42 +36,15 @@
                 { suit: 3, value: 2, location: 'inDeck', highlighted: false },
                 { suit: 3, value: 3, location: 'inDeck', highlighted: false },
             ]);
-            return { activeCards }
+            return { activeCards, th }
+        },
+        props: {
+          theme: {
+              default: 'green'
+          }
         },
         computed: {
             ...mapGetters('a', ['getHand', 'getDeck', 'getBoard', 'getChosenCards', 'combinationCheck'])
-        },
-        methods: {
-            ...mapActions('a', ['setDeckAction', 'test']),
-            ...mapMutations('a', ['moveToTable', 'chooseCards', 'setBoard']),
-            dealFlop () {
-                console.log('flop')
-                this.chooseCards(3)
-                for (let i = 0; i < this.getChosenCards.length; i++) {
-                    this.setBoard(this.getChosenCards[i])
-                }
-            },
-            dealRiver () {
-                console.log('river')
-                this.chooseCards(1)
-                this.setBoard(this.getChosenCards[0])
-            },
-            dealTurn () {
-                console.log('turn')
-                this.chooseCards(1)
-                this.setBoard(this.getChosenCards[0])
-            }
-        },
-        created () {
-            this.dealFlop()
-            setTimeout(() => {
-                this.dealRiver()
-            }, 1000)
-            setTimeout(() => {
-                this.dealTurn()
-            }, 2000)
-            // this.$store.dispatch('table/setDeckAction')
-            // this.setDeckAction({ id: 0, suit: 0, value: 2, location: 'inDeck', highlighted: false })
         }
     }
 </script>
@@ -84,7 +54,6 @@
         height: 400px;
         width: 900px;
         border-radius: 200px;
-        background: green;
         border: 12px solid #000000;
         .game-table-frame {
             display: flex;
@@ -101,6 +70,12 @@
                 border-radius: 130px;
             }
         }
+    }
+    .game-table.green {
+        background: green;
+    }
+    .game-table.blue {
+        background: #185a9a99;
     }
     .hand-part {
         display: flex;
